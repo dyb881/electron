@@ -7,3 +7,4 @@
 - build - 前端部分的代码
 - src - Electron 代码
   index.ts - 入口文件
+  config.ts - 配置文件

@@ -1,47 +1,53 @@
 import { app, BrowserWindow } from 'electron';
-import * as path from 'path';
+import { createGlobalShortcut } from './init/createGlobalShortcut';
+import { createWindow } from './init/createWindow';
+import { createIpcMain } from './init/createIpcMain';
+import { createApplicationMenu } from './init/createApplicationMenu';
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+/**
+ * 是否开发环境
+ */
+export const isDev = require('electron-is-dev');
+
+// 安装时、更新完成时、卸载时
 if (require('electron-squirrel-startup')) {
-  // eslint-disable-line global-require
+  // 退出程序;
   app.quit();
 }
 
-const createWindow = (): void => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
-  });
-
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+/**
+ * Electron 初始化
+ * 某些API仅在此事件发生后才能使用。
+ */
+app.on('ready', async () => {
+  // 注册主进程IPC模块事件
+  await createIpcMain();
+  // 创建全局快捷键
+  await createGlobalShortcut();
+  // 创建菜单
+  await createApplicationMenu();
+  // 创建窗口
+  await createWindow();
 });
 
+/**
+ * 激活应用
+ */
 app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
+  // 当前窗口数量为0时，创建新的窗口
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+/**
+ * 关闭所有窗口时
+ */
+app.on('window-all-closed', () => {
+  // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
+  // 否则绝大部分应用及其菜单栏会保持激活。
+  if (process.platform !== 'darwin') {
+    // 退出程序
+    app.quit();
+  }
+});

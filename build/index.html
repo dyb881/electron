@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css">
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Electron</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <h1>💖 Hello World!</h1>
+  <p>Welcome to your Electron application.</p>
+  <button id="button">测试渲染进程和主进程通信</button>
+</body>
+<script>
+  const { send, on } = window.electron;
+
+  document.getElementById('button').onclick = () => {
+    // 发送信息到主进程
+    send('asynchronous-message', '测试');
+  };
+
+  // 监听主进程返回的消息
+  on('asynchronous-reply', (event, arg) => {
+    console.log(event, arg);
+    alert(arg);
+  });
+</script>
+
 </html>
