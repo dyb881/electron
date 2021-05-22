@@ -1,13 +1,8 @@
 import { app, BrowserWindow } from 'electron';
+import { createWindow } from './init/shortcutFunction';
 import { createGlobalShortcut } from './init/createGlobalShortcut';
-import { createWindow } from './init/createWindow';
 import { createIpcMain } from './init/createIpcMain';
 import { createApplicationMenu } from './init/createApplicationMenu';
-
-/**
- * 是否开发环境
- */
-export const isDev = require('electron-is-dev');
 
 // 安装时、更新完成时、卸载时
 if (require('electron-squirrel-startup')) {
@@ -24,7 +19,7 @@ app.on('ready', async () => {
   await createIpcMain();
   // 创建全局快捷键
   await createGlobalShortcut();
-  // 创建菜单
+  // 创建自定义菜单
   await createApplicationMenu();
   // 创建窗口
   await createWindow();

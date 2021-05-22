@@ -1,6 +1,17 @@
 import { app, BrowserWindow, dialog } from 'electron';
-import { isDev, devUrl, localFile } from '../config';
+import { browserWindowOptions, isDev, devUrl, localFile } from '../config';
 import fetch from 'node-fetch';
+
+/**
+ * 创建窗口
+ */
+export const createWindow = async () => {
+  // 创建一个窗口
+  const win = new BrowserWindow(browserWindowOptions);
+
+  // 跳转首页
+  await toHome(win);
+};
 
 /**
  * 跳转首页
@@ -46,6 +57,21 @@ export const forward = (win = BrowserWindow.getFocusedWindow()) => {
 };
 
 /**
+ * 窗口全屏
+ * 全屏时隐藏菜单
+ */
+export const fullScreen = (win = BrowserWindow.getFocusedWindow()) => {
+  if (!win) return;
+  if (win.isFullScreen()) {
+    win.setFullScreen(false);
+    win.setMenuBarVisibility(true);
+  } else {
+    win.setFullScreen(true);
+    win.setMenuBarVisibility(false);
+  }
+};
+
+/**
  * 开发工具
  */
 export const devTools = (win = BrowserWindow.getFocusedWindow()) => {
@@ -59,18 +85,15 @@ export const devTools = (win = BrowserWindow.getFocusedWindow()) => {
 };
 
 /**
- * 切换全屏
- * 全屏时隐藏菜单
+ * 帮助
  */
-export const fullScreen = (win = BrowserWindow.getFocusedWindow()) => {
-  if (!win) return;
-  if (win.isFullScreen()) {
-    win.setFullScreen(false);
-    win.setMenuBarVisibility(true);
-  } else {
-    win.setFullScreen(true);
-    win.setMenuBarVisibility(false);
-  }
+export const help = () => {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['我知道了'],
+    title: '帮助',
+    message: ['帮助？', '有啥好帮的，看看就知道怎么用了'].join('\n'),
+  });
 };
 
 /**

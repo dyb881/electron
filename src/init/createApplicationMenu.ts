@@ -1,12 +1,22 @@
 import { app, Menu } from 'electron';
-import { quitConfirm, toHome, reload, goBack, forward, devTools, fullScreen } from './shortcutFunction';
+import { help, quitConfirm, toHome, reload, goBack, forward, devTools, fullScreen } from './shortcutFunction';
 
+/**
+ * 创建自定义菜单
+ */
 export const createApplicationMenu = async () => {
+  const name = app.getName();
+
   Menu.setApplicationMenu(
     Menu.buildFromTemplate([
       {
-        label: app.getName(),
-        submenu: [{ type: 'separator' }, { label: '完全退出', click: () => quitConfirm() }],
+        label: name,
+        submenu: [
+          { label: `关于 ${name}`, click: () => app.showAboutPanel() },
+          { label: `${name} 帮助`, click: () => help() },
+          { type: 'separator' },
+          { label: '完全退出', click: () => quitConfirm() },
+        ],
       },
       {
         label: '页面',
