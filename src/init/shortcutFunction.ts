@@ -11,6 +11,8 @@ export const createWindow = async () => {
 
   // 跳转首页
   await toHome(win);
+
+  return win;
 };
 
 /**
