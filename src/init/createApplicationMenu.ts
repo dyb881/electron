@@ -23,8 +23,8 @@ export const createApplicationMenu = async () => {
         submenu: [
           { label: '首页', accelerator: 'F1', click: () => toHome() },
           { type: 'separator' },
-          { label: '上一页', accelerator: 'F2', click: () => goBack() },
-          { label: '下一页', accelerator: 'F3', click: () => forward() },
+          { label: '上一页', accelerator: 'F3', click: () => goBack() },
+          { label: '下一页', accelerator: 'F4', click: () => forward() },
           { type: 'separator' },
           { label: '刷新', accelerator: 'F5', click: () => reload() },
         ],

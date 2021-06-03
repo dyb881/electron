@@ -6,11 +6,12 @@ import { toHome, goBack, forward, reload, fullScreen, devTools } from './shortcu
  */
 export const createGlobalShortcut = async () => {
   globalShortcut.register('F1', toHome);
-  globalShortcut.register('F2', goBack);
-  globalShortcut.register('F3', forward);
+  globalShortcut.register('F3', goBack);
+  globalShortcut.register('F4', forward);
   globalShortcut.register('F5', reload);
   globalShortcut.register('F11', fullScreen);
   globalShortcut.register('F12', devTools);
+  globalShortcut.register('ESC', () => fullScreen(true));
 };
 
 /**
