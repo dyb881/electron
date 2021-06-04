@@ -1,5 +1,5 @@
 import { app, globalShortcut } from 'electron';
-import { toHome, goBack, forward, reload, fullScreen, devTools } from './shortcutFunction';
+import { toHome, goBack, forward, reload, fullScreen, devTools } from '../funs/shortcut';
 
 /**
  * 创建全局快捷键

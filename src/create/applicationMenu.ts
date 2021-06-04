@@ -1,5 +1,5 @@
 import { app, Menu } from 'electron';
-import { help, quitConfirm, toHome, reload, goBack, forward, devTools, fullScreen } from './shortcutFunction';
+import { help, quitConfirm, toHome, reload, goBack, forward, devTools, fullScreen } from '../funs/shortcut';
 
 /**
  * 创建自定义菜单

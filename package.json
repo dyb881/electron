@@ -21,7 +21,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "src/images/app.icns"
+        "icon": "src/images/icon.png"
       },
       "makers": [
         {

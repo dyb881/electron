@@ -1,11 +1,13 @@
 import { Tray, Menu, app } from 'electron';
 import { join } from 'path';
 
+let appIcon;
+
 /**
  * 创建系统托盘按钮
  */
-export const createTray = () => {
-  const appIcon = new Tray(join(__dirname, '../../src/images/app.png'));
+export const createTray = async () => {
+  appIcon = new Tray(join(__dirname, '../../src/images/icon.png'));
 
   const menu = Menu.buildFromTemplate([
     {

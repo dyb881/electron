@@ -1,24 +1,12 @@
 import { app, BrowserWindow, dialog } from 'electron';
-import { browserWindowOptions, isDev, devUrl, localFile } from '../config';
+import { isDev, devUrl, localFile } from '../config';
 import fetch from 'node-fetch';
-
-/**
- * 创建窗口
- */
-export const createWindow = async () => {
-  // 创建一个窗口
-  const win = new BrowserWindow(browserWindowOptions);
-  // 跳转首页
-  await toHome(win);
-  return win;
-};
 
 /**
  * 创建窗口相关函数
  */
 export const createWindowFun = <T extends any, R extends any>(fun: (win: BrowserWindow, options?: T) => R) => {
-  return (options?: T) => {
-    const win = BrowserWindow.getFocusedWindow();
+  return (options?: T, win = BrowserWindow.getFocusedWindow()) => {
     if (!win) return;
     return fun(win, options);
   };

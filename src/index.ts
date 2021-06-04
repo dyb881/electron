@@ -1,9 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import { createWindow } from './init/shortcutFunction';
-import { createGlobalShortcut } from './init/createGlobalShortcut';
-import { createIpcMain } from './init/createIpcMain';
-import { createApplicationMenu } from './init/createApplicationMenu';
-import { createTray } from './init/createTray';
+import { createIpcMain } from './create/ipcMain';
+import { createGlobalShortcut } from './create/globalShortcut';
+import { createApplicationMenu } from './create/applicationMenu';
+import { createTray } from './create/tray';
+import { createWindow } from './create/window';
 
 // 安装时、更新完成时、卸载时
 if (require('electron-squirrel-startup')) {
@@ -22,20 +22,20 @@ app.on('ready', async () => {
   await createGlobalShortcut();
   // 创建自定义菜单
   await createApplicationMenu();
+  // 创建系统托盘
+  await createTray();
   // 创建窗口
   await createWindow();
-  // 创建系统托盘
-  createTray();
-});
 
-/**
- * 激活应用
- */
-app.on('activate', () => {
-  // 当前窗口数量为0时，创建新的窗口
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+  /**
+   * 激活应用
+   */
+  app.on('activate', async () => {
+    // 当前窗口数量为0时，创建新的窗口
+    if (BrowserWindow.getAllWindows().length === 0) {
+      await createWindow();
+    }
+  });
 });
 
 /**
