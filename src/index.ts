@@ -3,6 +3,7 @@ import { createWindow } from './init/shortcutFunction';
 import { createGlobalShortcut } from './init/createGlobalShortcut';
 import { createIpcMain } from './init/createIpcMain';
 import { createApplicationMenu } from './init/createApplicationMenu';
+import { createTray } from './init/createTray';
 
 // 安装时、更新完成时、卸载时
 if (require('electron-squirrel-startup')) {
@@ -23,6 +24,8 @@ app.on('ready', async () => {
   await createApplicationMenu();
   // 创建窗口
   await createWindow();
+  // 创建系统托盘
+  createTray();
 });
 
 /**
