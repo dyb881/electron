@@ -1,6 +1,5 @@
-import { app, BrowserWindow, dialog } from 'electron';
-import { isDev, devUrl, localFile } from '../config';
-import fetch from 'node-fetch';
+import { app, BrowserWindow, dialog, screen } from 'electron';
+import { localFile } from '../config';
 
 /**
  * 创建窗口相关函数
@@ -19,21 +18,8 @@ const cwf = createWindowFun;
  * 跳转首页
  */
 export const toHome = cwf(async (win) => {
-  if (isDev) {
-    // 检查地址是能够访问
-    await fetch(devUrl)
-      .then(() => {
-        // 加载开发环境地址
-        win.loadURL(devUrl);
-      })
-      .catch(() => {
-        // 加载本地文件
-        win.loadFile(localFile);
-      });
-  } else {
-    // 加载本地文件
-    win.loadFile(localFile);
-  }
+  // 加载本地文件
+  win.loadFile(localFile);
 });
 
 /**
@@ -107,3 +93,15 @@ export const quitConfirm = cwf(async (win) => {
   });
   response === 0 && app.exit();
 });
+
+/**
+ * 聚焦
+ */
+export const inputFocus = () => {
+  const [win] = BrowserWindow.getAllWindows();
+  const { x, y } = screen.getCursorScreenPoint();
+  const [width] = win.getSize();
+  win.setPosition(x - width / 2, y - 47);
+  win.show();
+  win.webContents.send('input-focus');
+};

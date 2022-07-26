@@ -1,23 +1,25 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, BrowserWindowConstructorOptions, globalShortcut } from 'electron';
 import { toHome } from '../funs/shortcut';
 import { browserWindowOptions } from '../config';
 
-let wins: BrowserWindow[] = [];
+let win: BrowserWindow;
 
 /**
  * 创建窗口
  */
-export const createWindow = async () => {
+export const createWindow = async (options?: BrowserWindowConstructorOptions) => {
   // 创建一个窗口
-  const win = new BrowserWindow(browserWindowOptions);
+  win = new BrowserWindow({ ...browserWindowOptions, ...options });
 
-  // 记录到内存
-  wins.push(win);
-  // 关闭窗口
-  win.on('closed', () => {
-    // 销毁对象
-    const index = wins.indexOf(win);
-    wins.splice(index, 1);
+  win.on('focus', () => {
+    globalShortcut.register('esc', () => {
+      win.hide();
+    });
+  });
+
+  win.on('blur', () => {
+    win.hide();
+    globalShortcut.unregister('esc');
   });
 
   // 确保窗口创建完成

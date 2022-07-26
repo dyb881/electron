@@ -20,11 +20,12 @@ export const localFile = join(__dirname, '../build/index.html');
  * 浏览器配置
  */
 export const browserWindowOptions: BrowserWindowConstructorOptions = {
-  width: 1200,
-  height: 800,
-  minWidth: 600,
+  width: 300,
+  height: 400,
+  minWidth: 300,
   minHeight: 400,
-  backgroundColor: '#fff',
+  frame: false,
+  transparent: true,
   webPreferences: {
     preload: join(__dirname, '../dist/preload.js'),
   },
