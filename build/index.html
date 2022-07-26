@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="index.css" />
-  </head>
-  <body>
-    <div class="page">
-      <div class="header">
-        <div class="left"></div>
-        <div class="title">Project Set</div>
-        <div class="right">
-          <div id="add-icon">
-            <img src="add-line.svg" alt="" />
-          </div>
-        </div>
-      </div>
-      <input type="text" placeholder="Search Project Name" id="search" />
-      <div id="projects"></div>
-      <div id="no-projects">
-        <div id="add-button">
-          <img src="add-line.svg" alt="" />
-          选择文件夹
-        </div>
-        <div>选择一个项目文件夹</div>
-        <div>读取里面所有一级目录，识别为文件</div>
-        <div>快捷键 Alt + Z</div>
-      </div>
-      <div id="loading">加载中</div>
-      <script src="index.js"></script>
-    </div>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Electron</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <h1>💖 Hello World!</h1>
+  <p>Welcome to your Electron application.</p>
+  <button id="button">测试渲染进程和主进程通信</button>
+</body>
+<script>
+  const { send, on } = window.electron;
+
+  document.getElementById('button').onclick = () => {
+    // 发送信息到主进程
+    send('asynchronous-message', '测试');
+  };
+
+  // 监听主进程返回的消息
+  on('asynchronous-reply', (event, arg) => {
+    console.log(event, arg);
+    alert(arg);
+  });
+</script>
+
 </html>
