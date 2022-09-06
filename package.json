@@ -47,25 +47,26 @@
     }
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "@types/node-fetch": "^2.6.1",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
-    "electron": "^18.0.3",
-    "eslint": "^8.13.0",
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
+    "@types/node-fetch": "^2.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "electron": "^20.1.1",
+    "eslint": "^8.23.0",
     "eslint-plugin-import": "^2.26.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.8.2"
   },
   "dependencies": {
     "@types/pinyin": "^2.10.0",
     "electron-is-dev": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.0.1",
-    "node-fetch": "^3.2.3",
+    "electron-store": "^8.1.0",
+    "node-abi": "^3.24.0",
+    "node-fetch": "^3.2.10",
     "pinyin": "^2.11.2"
   },
   "prettier": {
